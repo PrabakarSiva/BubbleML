@@ -34,6 +34,7 @@ from op_lib.vel_trainer import VelTrainer
 from op_lib.push_vel_trainer import PushVelTrainer
 from op_lib.push_vel_only_trainer import PushVelOnlyTrainer
 from op_lib.push_vel_trainer_mod import PushVelTrainerMod
+from op_lib.test_push_vel_trainer import TestPushVelTrainer
 from op_lib.schedule_utils import LinearWarmupLR
 from op_lib import dist_utils
 
@@ -48,7 +49,7 @@ torch_dataset_map = {
 
 trainer_map = {
     'temp_input_dataset': TempTrainer,
-    'vel_dataset': PushVelTrainer
+    'vel_dataset': TestPushVelTrainer
     #'vel_dataset': PushVelTrainerMod
 }
 

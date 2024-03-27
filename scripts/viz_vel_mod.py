@@ -17,17 +17,14 @@ def parse_args():
 
 @dataclass
 class BoilingData:
-    temp: torch.Tensor
     velx: torch.Tensor
     vely: torch.Tensor
 
-def load_vel_data(temp_path, vel_path):
+def load_vel_data(vel_path):
     pred = BoilingData(
-            torch.load(f'{temp_path}/model_ouput.pt').numpy(),
             torch.load(f'{vel_path}/velx_output.pt').numpy(),
             torch.load(f'{vel_path}/vely_output.pt').numpy())
     label = BoilingData(
-            torch.load(f'{temp_path}/sim_ouput.pt').numpy(),
             torch.load(f'{vel_path}/velx_label.pt').numpy(),
             torch.load(f'{vel_path}/vely_label.pt').numpy())
     return pred, label
@@ -35,8 +32,8 @@ def load_vel_data(temp_path, vel_path):
 def main():
     args = parse_args()
     
-    job_id = '30514645/'
-    pred, label = load_vel_data(f'test_im/temp/{job_id}', f'test_im/vel/{job_id}')
+    job_id = '29716257/'
+    pred, label = load_vel_data(f'test_im/vel/{job_id}')
     
     plt_vel(pred, label, args.path, 'model')
 
@@ -72,7 +69,7 @@ def plt_vel(pred, label, path, model_name):
     mag_vmax = abs(pred_mag[:50]).max()
     print(label_mag.max(), pred_mag.max())
 
-    frames = min(pred.temp.shape[0], 100)
+    frames = min(pred.velx.shape[0], 100)
     for i in range(frames):
         i_str = str(i).zfill(3)
         f, ax = plt.subplots(3, 2, layout='constrained')
@@ -94,21 +91,21 @@ def plt_vel(pred, label, path, model_name):
         err = abs(np.flipud(label.temp[i]) - np.flipud(np.nan_to_num(pred.temp[i])))
         err_mag = abs(np.flipud(label_mag[i]) - np.flipud(pred_mag[i]))
         ax[2, 0].imshow(err, vmin=0, vmax=1, cmap=temp_cmap())
-        ax[2, 1].imshow(err_mag, vmin=0, vmax=mag_vmax, cmap='jet')
+        ax[1, 2].imshow(err_mag, vmin=0, vmax=mag_vmax, cmap='jet')
 
         ax[0, 0].axis('off')
-        ax[0, 1].axis('off')
         ax[1, 0].axis('off')
+        ax[0, 1].axis('off')
         ax[1, 1].axis('off')
-        ax[2, 0].axis('off')
-        ax[2, 1].axis('off')
+        ax[0, 2].axis('off')
+        ax[1, 2].axis('off')
 
         ax[0, 0].set_title('Ground Truth')
-        ax[0, 1].set_title('Mag Vel Sim')
-        ax[1, 0].set_title(model_name)
+        ax[1, 0].set_title('Mag Vel Sim')
+        ax[0, 1].set_title(model_name)
         ax[1, 1].set_title('Mag Vel ' + model_name)
-        ax[2, 0].set_title('Absolute Error')
-        ax[2, 1].set_title('Mag Absolute Error')
+        ax[0, 2].set_title('Absolute Error')
+        ax[1, 2].set_title('Mag Absolute Error')
 
 
         #ax[0, 2].imshow(np.flipud(fft(label.temp[i])))

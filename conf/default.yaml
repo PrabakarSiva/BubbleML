@@ -1,9 +1,8 @@
 # NOTE: The data_base_dir must be set by the user
 # Either explicitly set it in this file or set it as a command-line argument
 # when running the train script.
-data_base_dir:
-log_dir:
-
+data_base_dir: /share/crsp/lab/ai4ts/share/simul_ts_0.1
+log_dir: /share/crsp/lab/amowli/prabakas/logs
 train: True
 test: True
 

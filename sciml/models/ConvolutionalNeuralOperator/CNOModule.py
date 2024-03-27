@@ -516,8 +516,13 @@ class CNO(nn.Module):
             if i == 0:
                 x = self.ED_expansion[self.N_layers - i](x) #BottleNeck : no cat
             else:
-                x = torch.cat((x, self.ED_expansion[self.N_layers - i](skip[-i])),1)
-            
+                print(x.shape)
+                print(self.ED_expansion[self.N_layers - i](skip[-i]).shape)
+                print(x[:5])
+                print("next")
+                print(self.ED_expansion[self.N_layers - i](skip[-i])[:5])
+                #x = torch.cat((x, self.ED_expansion[self.N_layers - i]),1)
+                x = torch.cat((x, self.ED_expansion[self.N_layers - i](skip[-i])),1) 
             if self.add_inv:
                 x = self.decoder_inv[i](x)
             # Apply (U) block

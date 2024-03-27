@@ -39,6 +39,7 @@ class Metrics:
         """
 
 def compute_metrics(pred, label, dfun):
+    print(pred.size(), label.size(), dfun.size())
     low, mid, high = fourier_error(pred, label, 8, 8)
     return Metrics(
         mae=mae(pred, label),
@@ -98,6 +99,7 @@ def boundary_rmse(pred, label):
     return rmse(bpred, blabel) 
 
 def interface_rmse(pred, label, dfun):
+    print(pred.size(), label.size(), dfun.size())
     assert pred.size() == label.size()
     assert pred.size() == dfun.size()
     mses = []

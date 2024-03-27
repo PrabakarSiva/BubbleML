@@ -26,7 +26,7 @@ t_bulk_map = {
     'subcooled': 50
 }
 
-class PushVelTrainer:
+class TestPushVelTrainer:
     def __init__(self,
                  model,
                  future_window,
@@ -97,11 +97,11 @@ class PushVelTrainer:
         input = torch.cat((temp, vel, dfun), dim=1)
         if self.use_coords:
             input = torch.cat((coords, input), dim=1)
-        #print(temp.shape)
-        #print(vel.shape)
-        #print(dfun.shape)
-        #print(coords.shape)
-        #print(input.shape)
+        print(temp.shape)
+        print(vel.shape)
+        print(dfun.shape)
+        print(coords.shape)
+        print(input.shape)
         pred = self.model(input)
 
         #timesteps = (torch.arange(self.future_window) + 1).cuda().unsqueeze(-1).unsqueeze(-1).float()

@@ -7,7 +7,7 @@ train:
   batch_size: 4
   shuffle_data: True
   time_window: 5
-  future_window: 5
+  future_window: 10
   push_forward_steps: 1
   use_coords: True
   noise: True

@@ -42,14 +42,14 @@ from models.get_model import get_model
 
 torch_dataset_map = {
     'temp_input_dataset': (DiskTempInputDataset, TempInputDataset),
-    'vel_dataset': (DiskTempVelDataset, TempVelDataset)
-    #'vel_dataset': (DiskVelInputDataset, VelInputDataset)
+    #'vel_dataset': (DiskTempVelDataset, TempVelDataset)
+    'vel_dataset': (DiskVelInputDataset, VelInputDataset)
 }
 
 trainer_map = {
     'temp_input_dataset': TempTrainer,
-    'vel_dataset': PushVelTrainer
-    #'vel_dataset': PushVelTrainerMod
+    #'vel_dataset': PushVelTrainer
+    'vel_dataset': PushVelTrainerMod
 }
 
 def build_datasets(cfg):
