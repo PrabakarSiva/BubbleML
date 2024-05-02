@@ -28,6 +28,7 @@ class DiskHDF5Dataset(Dataset):
 
         # these values are used to redimensionalize and then normalize data 
         self.wall_temp = self._get_wall_temp(filename)
+        self.inlet_vel = self._get_inlet_vel(filename)
         self.temp_scale = None
         self.vel_scale = None
 
@@ -48,6 +49,15 @@ class DiskHDF5Dataset(Dataset):
 
     def _get_data(self, key):
         return self._data[key][self.steady_time:]
+
+    def _get_inlet_vel(self, filename):
+        print("reached get inlet vel")
+        filename = Path(filename).stem
+        inlet_vel = None
+        inlet_vel_scale = 'inletVelScale-'
+        if inlet_vel_scale not in filename:
+            return 1
+        return float(filename[len(inlet_vel_scale):])
 
     def _get_wall_temp(self, filename):
         r"""

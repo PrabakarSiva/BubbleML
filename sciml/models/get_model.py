@@ -63,7 +63,7 @@ def get_model(model_name,
                             norm=True,
                             n_fourier_layers=exp.model.n_fourier_layers)
     elif model_name == _FNO:
-        model = FNO(n_modes=(exp.model.modes, exp.model.modes),
+        model = FNO(n_modes=exp.model.modes,
                     hidden_channels=exp.model.hidden_channels,
                     domain_padding=exp.model.domain_padding[0],
                     in_channels=in_channels,

@@ -39,6 +39,9 @@ class HDF5ConcatDataset(ConcatDataset):
 
     def datum_dim(self):
         return self.datasets[0].datum_dim()
+    
+    def add_inletvel(self):
+        return print(super())
 
 class HDF5Dataset(Dataset):
     def __init__(self,
@@ -74,6 +77,12 @@ class HDF5Dataset(Dataset):
         if self.temp_scale and self.vel_scale:
             self.normalize_temp_(self.temp_scale)
             self.normalize_vel_(self.vel_scale)
+
+    def add_inletvel(self):
+        filename = Path(self.filename).stem
+        inletVel = 'inletVelScale-'
+        if inletVel in filename:
+            print('inletVel: ' + int(filename[len(inletVel):]))
 
     def datum_dim(self):
         return self._data['temp'].size()
