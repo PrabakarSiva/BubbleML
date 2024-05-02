@@ -6,7 +6,7 @@ channels:
   - pyg
 dependencies:
   - python=3.9
-  - pytorch
+  - pytorch=2.0.1
   - torchvision
   - pytorch-cuda=11.7
   - pyg
@@ -17,7 +17,7 @@ dependencies:
   - pip
   - pip:
     - hydra-core
-    - neuraloperator
+    - neuraloperator=0.2.0
     - opencv-python
     - matplotlib
     - tensorboard
